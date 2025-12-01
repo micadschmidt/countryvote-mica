@@ -68,6 +68,8 @@ rails db:migrate
 rails s
 ```
 
+---
+
 ## 🧪 Running Tests Locally
 
 This project includes full test coverage using RSpec.
