@@ -34,9 +34,9 @@ body {
 /* HEADER */
 
 .header {
-  padding: 1.25rem 0;
+  padding: 1.5rem 0;
+  background: #f7f7f9;
   border-bottom: 1px solid rgba(148, 163, 184, 0.2);
-  background: var(--card-bg);
 }
 
 .header-inner {
@@ -45,20 +45,24 @@ body {
   padding: 0 1.5rem;
   display: flex;
   align-items: center;
-  gap: 0.75rem;
+  gap: 1.25rem;
 }
 
-.logo-placeholder {
-  width: 32px;
-  height: 32px;
-  border-radius: 12px;
-  background: #f97316;
+.logo-img {
+  height: 38px;
+  width: auto;
+}
+
+.header-separator {
+  height: 28px;
+  width: 2px;
+  background: #cbd5e1;
 }
 
 .header-title {
-  font-size: 14px;
+  font-size: 18px;
   font-weight: 500;
-  color: var(--text-muted);
+  color: #111827;
 }
 
 /* MAIN LAYOUT */
@@ -121,7 +125,7 @@ body {
 
 .vote-bar-header {
   font-size: 14px;
-  font-weight: 500;
+  font-weight: 700;
   color: var(--text-main);
   margin-bottom: 1rem;
 }
@@ -185,7 +189,7 @@ body {
 
 .top-title {
   font-size: 24px;
-  font-weight: 600;
+  font-weight: 700;
   margin-bottom: 1.25rem;
   color: var(--text-main);
 }
@@ -240,8 +244,8 @@ table {
 thead th {
   text-align: left;
   padding-bottom: 0.75rem;
-  color: var(--text-muted);
-  font-weight: 600;
+  font-weight: 700;
+  color: var(--text-main);
 }
 
 tbody td {
