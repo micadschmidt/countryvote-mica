@@ -10,7 +10,7 @@ async function request(path: string, options: RequestInit = {}) {
   });
 
   if (!res.ok) {
-    let body: any = null;
+    let body: unknown = null;
     try {
       body = await res.json();
     } catch {

@@ -1,35 +1,113 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import './App.css'
+import { useEffect, useState } from "react";
+import "./App.css";
+import { Header } from "./components/Header";
+import { VoteBar } from "./components/VoteBar";
+import { SuccessBanner } from "./components/SuccessBanner";
+import { CountryTable } from "./components/CountryTable";
+import { getAllCountries, getTopCountries, createVote } from "./countryVoteApi";
+import type { CountryOption, TopCountry, VotePayload } from "./types";
 
-function App() {
-  const [count, setCount] = useState(0)
+type ApiError = { status: number; body: unknown };
 
+function isApiError(error: unknown): error is ApiError {
   return (
-    <>
-      <div>
-        <a href="https://vite.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-      </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.tsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
-    </>
-  )
+    typeof error === "object" &&
+    error !== null &&
+    "status" in error &&
+    typeof (error as any).status === "number"
+  );
 }
 
-export default App
+function App() {
+  const [countries, setCountries] = useState<CountryOption[]>([]);
+  const [topCountries, setTopCountries] = useState<TopCountry[]>([]);
+  const [loadingCountries, setLoadingCountries] = useState(false);
+  const [loadingTop, setLoadingTop] = useState(false);
+  const [submitting, setSubmitting] = useState(false);
+
+  const [successMessage, setSuccessMessage] = useState("");
+  const [errorMessage, setErrorMessage] = useState("");
+  const [search, setSearch] = useState("");
+
+  useEffect(() => {
+    setLoadingCountries(true);
+    getAllCountries()
+      .then(setCountries)
+      .catch(() => setErrorMessage("Failed to load country list."))
+      .finally(() => setLoadingCountries(false));
+
+    refreshTop();
+  }, []);
+
+  function refreshTop() {
+    setLoadingTop(true);
+    getTopCountries()
+      .then(setTopCountries)
+      .catch(() => setErrorMessage("Failed to load top countries."))
+      .finally(() => setLoadingTop(false));
+  }
+
+  async function handleVoteSubmit(payload: VotePayload) {
+    setErrorMessage("");
+    setSuccessMessage("");
+    setSubmitting(true);
+
+    try {
+      await createVote(payload);
+      setSuccessMessage("Your vote was successfully submitted.");
+      refreshTop();
+    } catch (error) {
+      if (isApiError(error) && error.status === 422) {
+        setErrorMessage("This email has already voted.");
+      } else {
+        setErrorMessage("Something went wrong submitting your vote.");
+      }
+    } finally {
+      setSubmitting(false);
+    }
+  }
+
+  const filteredTop = topCountries.filter((c) => {
+    const term = search.toLowerCase();
+    return (
+      c.name.toLowerCase().includes(term) ||
+      (c.capital || "").toLowerCase().includes(term) ||
+      (c.region || "").toLowerCase().includes(term) ||
+      (c.subregion || "").toLowerCase().includes(term)
+    );
+  });
+
+  return (
+    <div className="app">
+      <Header />
+
+      <main className="main">
+        <div className="container">
+          {successMessage && <SuccessBanner message={successMessage} />}
+
+          {errorMessage && (
+            <div className="error-banner">
+              <span>{errorMessage}</span>
+            </div>
+          )}
+
+          <VoteBar
+            countries={countries}
+            loadingCountries={loadingCountries}
+            submitting={submitting}
+            onSubmit={handleVoteSubmit}
+          />
+
+          <CountryTable
+            countries={filteredTop}
+            loading={loadingTop}
+            search={search}
+            onSearchChange={setSearch}
+          />
+        </div>
+      </main>
+    </div>
+  );
+}
+
+export default App;
