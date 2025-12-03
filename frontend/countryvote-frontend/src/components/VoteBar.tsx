@@ -29,7 +29,12 @@ export function VoteBar({ countries, loadingCountries, submitting, onSubmit }: P
   async function handleSubmit(e: FormEvent) {
     e.preventDefault();
     if (!validate()) return;
-    await onSubmit({ name, email, countryCode });
+
+    await onSubmit({
+      name,
+      email,
+      country_code: countryCode, 
+    });
   }
 
   return (

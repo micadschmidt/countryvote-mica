@@ -6,7 +6,7 @@ class RestCountriesService
 
     # codes: ["ARG", "ITA"]
     joined = codes.join(",")
-    url = "#{BASE_URL}/alpha?codes=#{joined}&fields=name,capital,region,subregion,cca3"
+    url = "#{BASE_URL}/alpha?codes=#{joined}&fields=name,capital,region,subregion,cca3,flags"
 
     response = Faraday.get(url)
     return [] unless response.success?

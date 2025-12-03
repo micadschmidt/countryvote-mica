@@ -2,11 +2,18 @@ export function Header() {
   return (
     <header className="header">
       <div className="header-inner">
-        <img
-          src="/loopstudio-logo.png"
-          alt="Loopstudio"
-          className="logo-img"
-        />
+        <a
+          href="https://loopstudio.dev/"
+          target="_blank"
+          rel="noreferrer"
+          className="logo-link"
+        >
+          <img
+            src="/loopstudio-logo.png"
+            alt="Loopstudio"
+            className="logo-img"
+          />
+        </a>
 
         <div className="header-separator" />
 

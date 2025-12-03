@@ -23,7 +23,9 @@ class TopCountriesService
         official_name: country.dig("name", "official"),
         capital: country["capital"]&.first,
         region: country["region"],
-        subregion: country["subregion"]
+        subregion: country["subregion"],
+        flag_png: country.dig("flags", "png"),
+        flag_svg: country.dig("flags", "svg")
       }
     end.compact
   end

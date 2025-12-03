@@ -40,10 +40,19 @@ export function CountryTable({ countries, loading, search, onSearchChange }: Pro
             <tbody>
               {countries.map((c) => (
                 <tr key={c.country_code}>
-                  <td>{c.name}</td>
-                  <td>{c.capital}</td>
-                  <td>{c.region}</td>
-                  <td>{c.subregion}</td>
+                  <td className="country-cell">
+                    {(c.flag_svg || c.flag_png) && (
+                      <img
+                        className="country-flag"
+                        src={c.flag_svg ?? c.flag_png}
+                        alt={`${c.name} flag`}
+                      />
+                    )}
+                    <span>{c.name}</span>
+                  </td>
+                  <td>{c.capital || "-"}</td>
+                  <td>{c.region || "-"}</td>
+                  <td>{c.subregion || "-"}</td>
                   <td>{c.votes}</td>
                 </tr>
               ))}

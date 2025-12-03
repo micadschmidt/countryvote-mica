@@ -1,7 +1,7 @@
 export type VotePayload = {
   name: string;
   email: string;
-  countryCode: string;
+  country_code: string;
 };
 
 export type TopCountry = {
@@ -12,6 +12,8 @@ export type TopCountry = {
   capital?: string;
   region?: string;
   subregion?: string;
+  flag_png?: string;
+  flag_svg?: string;
 };
 
 export type CountryOption = {
