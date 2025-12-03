@@ -1,6 +1,7 @@
 # 📘 CountryVote — Fullstack Challenge
 
 Author: Micaela Dauria Schmidt
+
 Tech Stack: Ruby on Rails (API) · PostgreSQL · React + TypeScript + Vite · CSS Modules
 
 This repository contains the full implementation of the CountryVote platform, consisting of:
