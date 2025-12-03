@@ -273,6 +273,16 @@ This repository includes a full-stack solution meeting all functional requiremen
 
 ✔ Clear documentation
 
+✔ Time dedicated: 6 hours aprox.
+
+---
+
+<img width="1361" height="834" alt="Screenshot 2025-12-03 at 12 15 58 PM" src="https://github.com/user-attachments/assets/451a3a5d-2571-451b-bed6-f51a4f580be1" />
+
+<img width="1359" height="814" alt="Screenshot 2025-12-03 at 12 16 11 PM" src="https://github.com/user-attachments/assets/25fe2e0c-5a90-4279-8bbd-8a4afe987fa5" />
+
+<img width="1362" height="659" alt="Screenshot 2025-12-03 at 12 17 07 PM" src="https://github.com/user-attachments/assets/197e4d97-cc41-4c85-b554-4dc6ba85758c" />
+
 ---
 
 ### 🙌 Thank You
