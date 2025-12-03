@@ -6,13 +6,13 @@ Tech Stack: Ruby on Rails (API) · PostgreSQL · React + TypeScript + Vite · CS
 
 This repository contains the full implementation of the CountryVote platform, consisting of:
 
-A backend API built with Ruby on Rails
+- A backend API built with Ruby on Rails
 
-A frontend application built with React + TypeScript
+- A frontend application built with React + TypeScript
 
-Full instructions to install, test, and run both projects
+- Full instructions to install, test, and run both projects
 
-A documented explanation of design decisions, assumptions, and trade-offs taken during development
+- A documented explanation of design decisions, assumptions, and trade-offs taken during development
 
 ## 🏗 Project Structure
 
