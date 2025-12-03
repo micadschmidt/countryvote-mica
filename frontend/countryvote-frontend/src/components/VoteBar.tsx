@@ -1,4 +1,5 @@
-import { useState, FormEvent } from "react";
+import { useState } from "react";
+import type { FormEvent } from "react";
 import type { CountryOption, VotePayload } from "../types";
 
 type Props = {
@@ -33,7 +34,7 @@ export function VoteBar({ countries, loadingCountries, submitting, onSubmit }: P
     await onSubmit({
       name,
       email,
-      country_code: countryCode, 
+      country_code: countryCode,
     });
   }
 

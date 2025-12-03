@@ -10,12 +10,10 @@ import type { CountryOption, TopCountry, VotePayload } from "./types";
 type ApiError = { status: number; body: unknown };
 
 function isApiError(error: unknown): error is ApiError {
-  return (
-    typeof error === "object" &&
-    error !== null &&
-    "status" in error &&
-    typeof (error as any).status === "number"
-  );
+  if (!error || typeof error !== "object") return false;
+
+  const maybe = error as Partial<ApiError>;
+  return typeof maybe.status === "number";
 }
 
 function App() {
