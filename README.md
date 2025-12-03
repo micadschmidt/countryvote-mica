@@ -30,17 +30,17 @@ micaela-challenge/
 
 ✔ Requirements implemented
 
-1. Create a user with: name, email, favorite country (3-letter country code).
+1. Create a user with: ``name``, ``email``, ``voted country`` (3-letter country code).
 
-One vote per email enforced by backend validation.
+    One vote per email enforced by backend validation.
 
 2. Return Top 10 countries ordered by votes
 
-Each entry includes: name, official_name, capital, region, subregion, flags.
+    Each entry includes: ``name``, ``official_name``, ``capital``, ``region``, ``subregion``, ``flags``.
 
-Data retrieved from REST Countries API
+    Data retrieved from REST Countries API
 
----
+----
 
 ### 📦 Backend Setup
 
@@ -85,36 +85,29 @@ bundle exec rspec
 ### 🛠 Backend Architecture Overview
 
 ✔ Models
+
 User
 
-Validates:
+- ``name`` — required
 
-presence of name, email, country_code
+- ``email`` — required, unique, validated format
 
-format of email
+- ``country_code`` — required, 3 letters
 
-uniqueness of email
 
-country_code must be 3 letters
+✔ Service Objects
 
-✔ Services
-RestCountriesService
+RestCountriesService 
+- Handles all calls to https://restcountries.com
 
-Used to:
+TopCountriesService 
+- Groups users by country_code
 
-Fetch all countries for dropdown
+- Orders by vote count
 
-Fetch details for specific list of cca3 codes
+- Fetches country details via RestCountriesService
 
-TopCountriesService
-
-Groups users by country_code
-
-Retrieves top 10
-
-Enriches each entry with REST Countries metadata
-
-Used by /api/v1/countries/top
+- Merges vote counts + enriched info for the frontend
 
 ---
 
