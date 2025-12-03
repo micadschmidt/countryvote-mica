@@ -1,6 +1,6 @@
 # CountryVote API (Backend Service)
 
-Branch: `backend/setup`
+Branch: `backend/countryvote_api`
 
 This is the backend service for the Fullstack Challenge **CountryVote**.
 It exposes a REST API to allow users to vote for their favorite country and retrieve the most voted ones.
