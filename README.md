@@ -1,50 +1,144 @@
-# Fullstack-challenge
+# 📘 CountryVote — Fullstack Challenge
 
-## Instructions
+Author: Micaela Dauria Schmidt
+Tech Stack: Ruby on Rails (API) · PostgreSQL · React + TypeScript + Vite · CSS Modules
 
-This challenge involves building a full-stack application, "CountryVote," that allows users to vote for their favorite countries. The project is divided into two main parts: the backend service and the frontend interface. This document provides the guidelines and requirements to help you approach the challenge as you would in a real production environment. We value clean, efficient, and well-documented code. 
+This repository contains the full implementation of the CountryVote platform, consisting of:
 
-You should be able to complete this project in approximately 15 to 20 hours. Please note that this is just an estimate, not a strict deadline. We’re giving you a week to complete the project, but if you find yourself needing more time, just let us know. Once you’re done, we’d appreciate it if you could provide a rough estimate of the time you spent on it.
+A backend API built with Ruby on Rails
 
-Feel free to ask any question to Loopstudio via email. 
+A frontend application built with React + TypeScript
 
-## Deliverables
+Full instructions to install, test, and run both projects
 
-A Github repository that contains:
+A documented explanation of design decisions, assumptions, and trade-offs taken during development
 
-1. The implementation of both backend service and frontend application
-2. Instructions on how to install, test, and run them
-3. For each project, a written explanation of the design choices you made, and how it meets both the functional and non-functional requirements. 
-4. For each project, a written explanation of any compromise or trade-off that you took because of time constraints.
+## 🏗 Project Structure
 
-## Assumptions
+```bash
+micaela-challenge/
+├── backend/
+│   └── countryvote_api/   # Rails API
+└── frontend/
+    └── countryvote-frontend/   # Vite + React + TypeScript
+```
 
-Feel free to assume anything you are not 100% sure and our answers don't provide you enough information. Please document those assumptions. 
+---
 
-## Objective
-Develop a platform that allows users to submit their favorite country vote and view the top favorite countries.
+## 🚀 1. Backend — CountryVote API (Rails)
 
+✔ Requirements implemented
 
-# CountryVote Service (Backend service)
-Please use the following public API (https://restcountries.com/#rest-countries) and implement an API that allows you to achieve the next behaviors:
+1. Create a user with: name, email, favorite country (3-letter country code).
 
-## Functional requirements
+One vote per email enforced by backend validation.
 
-1. Create a user along with their favorite country. For example: John Doe → jhondoe@gmail.com → Italy. Important note: only one vote per email will be allowed
-2. Retrieve a list of the most 10 favorite countries and include their details like name, official name, capital city, region, and sub-region (retrieved from the provided API).
+2. Return Top 10 countries ordered by votes
 
-# CountryVote Interface (Frontend application)
+Each entry includes: name, official_name, capital, region, subregion, flags.
 
-We created [this design](https://www.figma.com/design/tSSpW00aRvoqSHIEPSAbQX/Fullstack-developer-Challenge---Figma?node-id=0-1) for you to follow. Please, use the CountryVote Service previously described as the backend service for this frontend application.
+Data retrieved from REST Countries API
 
+---
 
-## Functional requirements
+### 📦 Backend Setup
 
-1. Voting Form: Build a form where users can submit their name, email, and select their favorite country from a dropdown. The form should validate for non-empty fields and correct email format.
-2. Country Display Table: Show a table of the top 10 countries sorted by votes. Implement search functionality.
+#### 1. Install dependencies
 
+```bash
+cd backend/countryvote_api
+bundle install
+```
 
-## Requirements
-- Style the application to look as true to the design as possible.
-- Feel free to pick any libraries you consider worth using for the challenge
-- We recommend React for frontend and Node (Express/Nest) for backend using Typescript, but any language and framework is accepted, just make sure to validate the decision with LoopStudio team before starting.
+#### 2. Setup the database
+
+```bash
+rails db:create
+rails db:migrate
+```
+
+#### 3. Run the API
+
+```bash
+rails server
+```
+
+---
+
+### 🧪 Running Backend Tests
+
+Ensure DB test environment exists:
+
+```bash
+RAILS_ENV=test rails db:create db:migrate
+```
+
+Run all tests:
+
+```bash
+bundle exec rspec
+```
+
+---
+
+### 🛠 Backend Architecture Overview
+
+✔ Models
+User
+
+Validates:
+
+presence of name, email, country_code
+
+format of email
+
+uniqueness of email
+
+country_code must be 3 letters
+
+✔ Services
+RestCountriesService
+
+Used to:
+
+Fetch all countries for dropdown
+
+Fetch details for specific list of cca3 codes
+
+TopCountriesService
+
+Groups users by country_code
+
+Retrieves top 10
+
+Enriches each entry with REST Countries metadata
+
+Used by /api/v1/countries/top
+
+---
+
+### 📡 API Endpoints
+
+POST /api/v1/votes
+
+Create a user vote.
+
+Payload:
+
+```json
+{
+  "vote": {
+    "name": "Mica",
+    "email": "mica@example.com",
+    "country_code": "ARG"
+  }
+}
+```
+
+GET /api/v1/countries/top
+
+Returns top 10 voted countries with full details + flags.
+
+---
+
+## 🎨 2. Frontend — CountryVote Interface (React + TS)
