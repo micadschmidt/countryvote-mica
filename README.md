@@ -59,6 +59,7 @@ rails server
 Ensure DB test environment exists:
 
 ```bash
+cd backend/countryvote_api # if in main
 RAILS_ENV=test rails db:create db:migrate
 ```
 
